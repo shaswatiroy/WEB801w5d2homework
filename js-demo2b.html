@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<title>My Second Web Page</title>
+
+<link rel="stylesheet" href="demo.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+       $("#btn").click(function(event){
+            $('<table></table>').insertBefore('input');
+            $('table').append('<caption></caption>');
+            $('table').append('<thead></thead>');
+            $('table').append('<tbody></tbody>');
+            $('table').append('<tfoot></tfoot>');
+            $('thead').append('<tr id="showheading"></tr>');
+            $('tbody').append('<tr id="showcalories"></tr>');
+            $('tbody').append('<tr id="showfat"></tr>');
+            $('tfoot').append('<tr id="showven"></tr>');
+            $('tfoot').append('<tr id="showven"></tr>');
+            for (var i = 0 ; i < 5; i++) {
+                $('#showheading').append('<th></th>');
+            } 
+            for (var i = 0 ; i < 5; i++) {
+                $('#showcalories').append('<td></td>');
+                $('#showfat').append('<td></td>');
+                $('#showven').append('<td></td>');
+            }
+        
+            // Load data from JSON
+            $.getJSON('/data.json', function(jqdata) {
+                var headings = [jqdata.heading, jqdata.head1, jqdata.head2, jqdata.head3, jqdata.head4];
+                var calories = [jqdata.subheadcal, jqdata.cal1, jqdata.cal2, jqdata.cal3, jqdata.cal4];
+                var fat = [jqdata.subheadfat, jqdata.fat1, jqdata.fat2, jqdata.fat3, jqdata.fat4];
+                var vendors = [jqdata.subheadven, jqdata.ven1, jqdata.ven2, jqdata.ven3, jqdata.ven4];
+                
+                $('caption').append(jqdata.title.toUpperCase());
+                for (var i = 0 ; i < 5; i++) {
+                    $('#showheading th:nth-child('+(i+1)+')').append(headings[i]);
+                    $('#showcalories td:nth-child('+(i+1)+')').append(calories[i]);
+                    $('#showfat td:nth-child('+(i+1)+')').append(fat[i]);
+                    $('#showven td:nth-child('+(i+1)+')').append(vendors[i]);
+                }
+            }); 
+       });
+    });
+ </script>
+</head> 	
+<body>
+
+<div id="container">
+
+<header>My Web Site Brand</header>
+<nav>
+	<ul>
+    <li><a href="js-demo2.html">Home</a></li>
+    <li><a href="js-demo2b.html">About</a></li>
+    <li><a href="js-demo2d.html">Gallery</a></li>
+    <li><a href="js-demo2c.html">Contact</a></li>
+	</ul>
+</nav>
+
+<main>
+  <h1>My Second Heading</h1>
+  <p>My Second paragraph.</p>
+
+  <input type = "button" id = "btn" value = "Load Data" style="margin-top:20px;" />
+    
+</main>
+
+<footer>&copy; Copyright 2020</footer>
+
+</div>
+
+</body>
+</html>
